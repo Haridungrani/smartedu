@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Sidebar({ currentPage }) {
     const links = [
-        { href: "/", name: "Dashboard", page: "dashboard" },
+        { href: "/admin/", name: "Dashboard", page: "dashboard" },
         { href: "/admin/user", name: "User", page: "user" },
         { href: "/admin/blogger", name: "Blogger", page: "blogger" },
         { href: "/admin/course", name: "Course", page: "course" },

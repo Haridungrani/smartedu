@@ -1,38 +1,68 @@
-// app/admin/Dashboard/page.tsx
 "use client";
 
-import React from "react";
-import { Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { FaUser, FaPenFancy, FaEnvelope } from "react-icons/fa"; // FaEnvelope for contact
 
 export default function Dashboard() {
-  const totalUsers = "150"; // placeholder value
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalBloggers, setTotalBloggers] = useState(0);
+  const [totalContact, setTotalContact] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        // Fetch total users
+        const resUsers = await fetch("/api/admin/user/count");
+        const dataUsers = await resUsers.json();
+        setTotalUsers(dataUsers.totalUsers || 0);
+
+        // Fetch total bloggers
+        const resBloggers = await fetch("/api/admin/blogger/count");
+        const dataBloggers = await resBloggers.json();
+        setTotalBloggers(dataBloggers.totalBloggers || 0);
+
+        // Fetch total contacts
+        const resContact = await fetch("/api/admin/contact/count");
+        const dataContact = await resContact.json();
+        setTotalContact(dataContact.totalContact || 0);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
+  if (loading) return <p className="text-center mt-6">Loading...</p>;
+  if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
 
   return (
-    <div className="flex justify-center items-start min-h-screen bg-gray-50">
-      <div className="content-page w-full max-w-4xl p-6">
-        <div className="container-fluid">
-          <div className="row page-title align-items-center mb-6">
-            <div className="col-sm-4 col-xl-6">
-              <h4 className="mb-1 mt-0 text-xl font-bold">Dashboard</h4>
-            </div>
-          </div>
+    <div className="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Total Users Card */}
+        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+          <FaUser className="text-purple-800 w-12 h-12 mb-4" />
+          <h2 className="text-xl font-semibold mb-2">Total Users</h2>
+          <p className="text-2xl font-bold">{totalUsers}</p>
+        </div>
 
-          {/* Dashboard Cards */}
-          <div className="row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="col-md-6 col-xl-3">
-              <div className="card bg-white shadow rounded-lg">
-                <div className="card-body p-0">
-                  <div className="media flex items-center justify-center px-4 py-5 border-b border-gray-200">
-                    <div className="media-body flex-1 text-center">
-                      <h4 className="mt-0 mb-1 text-2xl font-normal">{totalUsers}</h4>
-                      <span className="text-gray-500">Total Users</span>
-                    </div>
-                    <Users className="align-self-center icon-dual icon-lg w-8 h-8 text-gray-400" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Total Bloggers Card */}
+        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+          <FaPenFancy className="text-green-600 w-12 h-12 mb-4" />
+          <h2 className="text-xl font-semibold mb-2">Total Bloggers</h2>
+          <p className="text-2xl font-bold">{totalBloggers}</p>
+        </div>
+
+        {/* Total Contact Card */}
+        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+          <FaEnvelope className="text-blue-600 w-12 h-12 mb-4" />
+          <h2 className="text-xl font-semibold mb-2">Total Contact</h2>
+          <p className="text-2xl font-bold">{totalContact}</p>
         </div>
       </div>
     </div>
