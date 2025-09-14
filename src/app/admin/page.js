@@ -7,6 +7,7 @@ export default function Dashboard() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalBloggers, setTotalBloggers] = useState(0);
   const [totalContact, setTotalContact] = useState(0);
+  // const [totalCourses, setTotalCourses] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -22,6 +23,11 @@ export default function Dashboard() {
         const resBloggers = await fetch("/api/admin/blogger/count");
         const dataBloggers = await resBloggers.json();
         setTotalBloggers(dataBloggers.totalBloggers || 0);
+
+        //fetch total courses
+//         const resCourses = await fetch("/api/admin/course/count");
+// const dataCourses = await resCourses.json();
+// setTotalCourses(dataCourses.totalCourses || 0);
 
         // Fetch total contacts
         const resContact = await fetch("/api/admin/contact/count");
@@ -64,6 +70,13 @@ export default function Dashboard() {
           <h2 className="text-xl font-semibold mb-2">Total Contact</h2>
           <p className="text-2xl font-bold">{totalContact}</p>
         </div>
+
+        {/* Total Courses Card */}
+       {/* <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+  <FaPenFancy className="text-red-600 w-12 h-12 mb-4" />
+  <h2 className="text-xl font-semibold mb-2">Total Courses</h2>
+  <p className="text-2xl font-bold">{totalCourses}</p>
+</div> */}
       </div>
     </div>
   );
