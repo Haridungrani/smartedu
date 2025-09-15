@@ -29,3 +29,43 @@
 //     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
 //   }
 // }
+
+
+// app/api/admin/register/route.js
+import { NextResponse } from "next/server";
+import { connect } from "../../../../utlis/dbconfig";
+import Admin from "../../../../model/admin";
+import bcrypt from "bcryptjs"; // import bcryptjs
+
+export async function POST(req) {
+  try {
+    const { email, password } = await req.json();
+
+    if (!email || !password) {
+      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
+    }
+
+    await connect();
+
+    const existingAdmin = await Admin.findOne({ email });
+    if (existingAdmin) {
+      return NextResponse.json({ error: "Email already registered" }, { status: 400 });
+    }
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
+
+    const newAdmin = new Admin({
+      email,
+      password: hashedPassword,
+    });
+
+    await newAdmin.save();
+
+    return NextResponse.json({ message: "Admin registered successfully" }, { status: 201 });
+
+  } catch (error) {
+    console.error("Admin registration error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}

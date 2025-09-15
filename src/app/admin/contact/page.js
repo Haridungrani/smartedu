@@ -25,6 +25,13 @@ export default function ContactList() {
             setLoading(false);
         }
     };
+    if (loading) {
+    return (
+      <div className="text-center mt-10">
+        <Loader />
+      </div>
+    );
+  }
 
     useEffect(() => {
         fetchContacts();
