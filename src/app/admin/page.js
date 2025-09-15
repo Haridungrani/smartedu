@@ -28,9 +28,9 @@ export default function Dashboard() {
         setTotalBloggers(dataBloggers.totalBloggers || 0);
 
         //fetch total courses
-//         const resCourses = await fetch("/api/admin/course/count");
-// const dataCourses = await resCourses.json();
-// setTotalCourses(dataCourses.totalCourses || 0);
+        //         const resCourses = await fetch("/api/admin/course/count");
+        // const dataCourses = await resCourses.json();
+        // setTotalCourses(dataCourses.totalCourses || 0);
 
         // Fetch total contacts
         const resContact = await fetch("/api/admin/contact/count");
@@ -46,45 +46,44 @@ export default function Dashboard() {
 
     fetchCounts();
   }, []);
-
-  if (loading) return <p className="text-center mt-6"><Loader/></p>;
-  if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
+  if (loading) return <Loader />;
+  if (error) return <div className="text-center mt-6 text-red-600">{error}</div>;
 
   return (
     <div>
-      <Header/>
-      <Sidebar/>
-    <div className="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Total Users Card */}
-        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
-          <FaUser className="text-purple-800 w-12 h-12 mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Total Users</h2>
-          <p className="text-2xl font-bold">{totalUsers}</p>
-        </div>
+      <Header />
+      <Sidebar />
+      <div className="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Total Users Card */}
+          <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+            <FaUser className="text-purple-800 w-12 h-12 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Total Users</h2>
+            <p className="text-2xl font-bold">{totalUsers}</p>
+          </div>
 
-        {/* Total Bloggers Card */}
-        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
-          <FaPenFancy className="text-green-600 w-12 h-12 mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Total Bloggers</h2>
-          <p className="text-2xl font-bold">{totalBloggers}</p>
-        </div>
+          {/* Total Bloggers Card */}
+          <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+            <FaPenFancy className="text-green-600 w-12 h-12 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Total Bloggers</h2>
+            <p className="text-2xl font-bold">{totalBloggers}</p>
+          </div>
 
-        {/* Total Contact Card */}
-        <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
-          <FaEnvelope className="text-blue-600 w-12 h-12 mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Total Contact</h2>
-          <p className="text-2xl font-bold">{totalContact}</p>
-        </div>
+          {/* Total Contact Card */}
+          <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+            <FaEnvelope className="text-blue-600 w-12 h-12 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Total Contact</h2>
+            <p className="text-2xl font-bold">{totalContact}</p>
+          </div>
 
-        {/* Total Courses Card */}
-       {/* <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
+          {/* Total Courses Card */}
+          {/* <div className="bg-white shadow-lg rounded-lg p-10 text-center w-64 aspect-square flex flex-col justify-center items-center">
   <FaPenFancy className="text-red-600 w-12 h-12 mb-4" />
   <h2 className="text-xl font-semibold mb-2">Total Courses</h2>
   <p className="text-2xl font-bold">{totalCourses}</p>
 </div> */}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

@@ -1,25 +1,13 @@
-// utils/insertAdmin.js
 import { connect } from "./dbconfig";
-import Admin from "../model/admin"; // define admin schema
+import bcrypt from "bcrypt";
 
-async function insertAdmin() {
-  await connect();
+async function createAdmin() {
+  const client = await connect();
+  const db = client.db("smartedu");
 
-  const adminExists = await Admin.findOne({ email: "admin@example.com" });
-  if (adminExists) {
-    console.log("Admin already exists");
-    return;
-  }
-
-  const newAdmin = new Admin({
-    name: "Admin User",
-    email: "admin@example.com",
-    password: "admin123", // Use hashing in production!
-    role: "admin"
-  });
-
-  await newAdmin.save();
-  console.log("Admin user created");
+  const passwordHash = await bcrypt.hash("admin123", 10);
+  await db.collection("admins").insertOne({ email: "admin@example.com", password: passwordHash });
 }
 
-insertAdmin().then(() => process.exit());
+createAdmin();
+export default createAdmin;
