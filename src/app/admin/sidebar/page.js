@@ -8,7 +8,7 @@ export default function Sidebar({ currentPage }) {
         { href: "/admin/blogger", name: "Blogger", page: "blogger" },
         { href: "/admin/course", name: "Course", page: "course" },
         { href: "/admin/contact", name: "Contact", page: "contact" },
-        // { href: "/admin/register", name: "Enquiry", page: "enquiry" },
+        { href: "/admin/register", name: "Register", page: "register" },
     ];
 
     return (

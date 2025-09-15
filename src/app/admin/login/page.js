@@ -24,7 +24,7 @@ export default function AdminLoginPage() {
 
       if (res.ok) {
         // Login success
-        router.push("/admin/"); // Redirect to protected page
+        router.push("/"); // Redirect to protected page
       } else {
         setMessage(data.error || "Login failed");
       }

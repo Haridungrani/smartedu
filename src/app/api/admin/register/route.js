@@ -5,7 +5,7 @@
 
 // export async function POST(req) {
 //   try {
-//     const { name, email, password } = await req.json();
+//     const {  email, password } = await req.json();
 
 //     await connect();
 
@@ -15,10 +15,9 @@
 //     }
 
 //     const newAdmin = new Admin({
-//       name,
+      
 //       email,
 //       password, // In production, hash this!
-//       role: "admin"
 //     });
 
 //     await newAdmin.save();

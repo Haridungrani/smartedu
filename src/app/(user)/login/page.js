@@ -22,6 +22,7 @@ export default function Login() {
 
         if (res.ok) {
             alert("Login successful!");
+            router.push("/course");
             setErrorMsg("");
             // Redirect or perform further actions
         } else {
