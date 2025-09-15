@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Sidebar from "../sidebar/page";
+import Header from "../header/page";
 
 export default function AddCourse() {
   const [courseName, setCourseName] = useState("");
@@ -111,6 +113,9 @@ export default function AddCourse() {
   };
 
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex flex-col items-center min-h-screen bg-gray-100 pt-20 px-4">
       {/* Form */}
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg mb-10">
@@ -212,6 +217,7 @@ export default function AddCourse() {
           </table>
         </div>
       </div>
+    </div>
     </div>
   );
 }

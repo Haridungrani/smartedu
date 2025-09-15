@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Header from "./header/page";
+import Sidebar from "./sidebar/page";
 
 const slides = [
   {
@@ -28,6 +30,9 @@ export default function HomePage() {
   }, []);
 
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex">
       {/* Sidebar placeholder */}
       <div className="w-1/6 bg-gray-100 min-h-screen">{/* Sidebar */}</div>
@@ -64,6 +69,7 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }

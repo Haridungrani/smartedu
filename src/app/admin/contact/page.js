@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
+import Loader from "../loader";
 
 export default function ContactList() {
     const [contacts, setContacts] = useState([]);
@@ -28,7 +31,7 @@ export default function ContactList() {
     }, []);
 
     if (loading) {
-        return <p className="text-center mt-10">Loading contacts...</p>;
+        return <p className="text-center mt-10"><Loader /></p>;
     }
 
     if (error) {
@@ -36,6 +39,9 @@ export default function ContactList() {
     }
 
     return (
+        <div>
+            <Header/>
+            <Sidebar/>
         <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6">
             <h2 className="text-3xl font-bold text-purple-800 mb-6">Contact List</h2>
             {contacts.length > 0 ? (
@@ -62,6 +68,7 @@ export default function ContactList() {
             ) : (
                 <p className="text-center text-gray-600">No contacts found.</p>
             )}
+        </div>
         </div>
     );
 }

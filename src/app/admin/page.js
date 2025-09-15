@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { FaUser, FaPenFancy, FaEnvelope } from "react-icons/fa"; // FaEnvelope for contact
+import Header from "./header/page";
+import Sidebar from "./sidebar/page";
+import Loader from "./loader";
 
 export default function Dashboard() {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -44,10 +47,13 @@ export default function Dashboard() {
     fetchCounts();
   }, []);
 
-  if (loading) return <p className="text-center mt-6">Loading...</p>;
+  if (loading) return <p className="text-center mt-6"><Loader/></p>;
   if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
 
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Total Users Card */}
@@ -78,6 +84,7 @@ export default function Dashboard() {
   <p className="text-2xl font-bold">{totalCourses}</p>
 </div> */}
       </div>
+    </div>
     </div>
   );
 }

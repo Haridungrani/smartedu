@@ -2,9 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
 
 export default function AboutPage() {
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-1/6 bg-white min-h-screen shadow-md">{/* Sidebar placeholder */}</div>
@@ -71,6 +76,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

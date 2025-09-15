@@ -83,75 +83,72 @@ export default function Register() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-      <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6">
-        <div className="text-center text-purple-800 font-algerian text-3xl mb-6">
-          <div className="flex justify-center items-center gap-2">
-            <Image src="/smartEDU_logo.png" alt="Logo" width={80} height={80} />
-            <h2>User Registration</h2>
-          </div>
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        {/* Header */}
+        <div className="text-center text-purple-800 font-bold text-3xl mb-8 flex justify-center items-center gap-4">
+          <Image src="/smartEDU_logo.png" alt="Logo" width={80} height={80} />
+          <h2>User Registration</h2>
         </div>
 
-        <div className="flex flex-col md:flex-row md:justify-center md:gap-6">
-          <div className="w-full md:w-1/2 flex justify-center mb-4 md:mb-0">
-            <Image
-              src="/login.jpg"
-              alt="Course"
-              width={500}
-              height={450}
-              className="rounded shadow-md"
-            />
+        {/* Form + Image */}
+        <div className="flex flex-col md:flex-row md:items-center md:gap-12">
+          {/* Side Image */}
+          <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
+            <div className="relative w-64 h-64 md:w-80 md:h-80">
+              <Image
+                src="/login.jpg"
+                alt="User registration"
+                fill
+                className="rounded-xl object-cover shadow-lg"
+              />
+            </div>
           </div>
 
+          {/* Form */}
           <div className="w-full md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
-                name="name"
                 placeholder="Enter name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
 
               <input
                 type="email"
-                name="email"
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
 
               <input
                 type="password"
-                name="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
 
               <input
                 type="text"
-                name="contact"
                 placeholder="Enter contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 required
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
 
               <div>
-                <label className="block mb-1 font-serif">Profile picture</label>
+                <label className="block mb-1 font-medium">Profile Picture</label>
                 <input
                   type="file"
-                  name="profile"
-                  id="profile"
-                  className="w-full border rounded p-2"
                   onChange={(e) => setProfile(e.target.files[0])}
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
 
@@ -160,27 +157,29 @@ export default function Register() {
 
               <button
                 type="submit"
-                className="w-full bg-purple-800 text-white font-forte rounded-full px-4 py-2 hover:bg-purple-900"
+                className="w-full bg-purple-800 text-white font-semibold rounded-full px-4 py-3 hover:bg-purple-900 transition"
               >
                 Register
               </button>
             </form>
 
+            {/* Login Link */}
             <div className="text-center mt-4">
-              <h5 className="font-serif text-base">
+              <p className="text-gray-600">
                 Already registered?{" "}
-                <Link href="/login" className="text-blue-600 hover:underline">
+                <Link href="/login" className="text-purple-700 font-semibold hover:underline">
                   Login
                 </Link>
-              </h5>
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="text-center mt-6">
+        {/* Home Button */}
+        <div className="text-center mt-8">
           <Link
             href="/"
-            className="inline-block bg-purple-800 text-white font-forte rounded-full px-4 py-2 hover:bg-purple-900"
+            className="inline-block bg-purple-800 text-white font-semibold rounded-full px-6 py-3 hover:bg-purple-900 transition"
           >
             Home
           </Link>

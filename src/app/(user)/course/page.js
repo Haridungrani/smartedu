@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
+import Loader from "../loader";
 
 export default function CoursePage() {
   const [courses, setCourses] = useState([]);
@@ -27,11 +30,13 @@ export default function CoursePage() {
   useEffect(() => {
     fetchCourses();
   }, []);
-
-  if (loading) return <p className="text-center mt-6">Loading...</p>;
-  if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
+if (loading) return <Loader />;
+if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
 
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex justify-center items-start min-h-screen bg-gray-100 px-4 py-20">
       <div className="flex flex-col items-center w-full max-w-7xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Courses</h2>
@@ -80,6 +85,7 @@ export default function CoursePage() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

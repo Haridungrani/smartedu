@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
+import Loader from "../loader";
 
 export default function UserListPage() {
     const [users, setUsers] = useState([]);
@@ -29,7 +32,7 @@ export default function UserListPage() {
     }, []);
 
     if (loading) {
-        return <div className="text-center mt-10">Loading users...</div>;
+        return <div className="text-center mt-10"><Loader/></div>;
     }
 
     if (error) {
@@ -58,6 +61,9 @@ export default function UserListPage() {
     };
 
     return (
+        <div>
+            <Header/>
+            <Sidebar/>
         <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
             <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-bold text-center text-purple-800 mb-4">User List</h2>
@@ -108,6 +114,7 @@ export default function UserListPage() {
                     <p className="text-center mt-6 text-gray-600">No users found.</p>
                 )}
             </div>
+        </div>
         </div>
     );
 }

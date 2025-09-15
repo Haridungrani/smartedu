@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -59,6 +61,9 @@ export default function ContactPage() {
   };
 
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-1/6 bg-white min-h-screen shadow-md">{/* Sidebar placeholder */}</div>
       <div className="w-5/6 p-8">
@@ -119,6 +124,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

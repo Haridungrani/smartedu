@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Header from "../header/page";
+import Sidebar from "../sidebar/page";
 
 const developers = [
   {
@@ -34,6 +36,9 @@ const developers = [
 
 export default function DevelopersPage() {
   return (
+    <div>
+      <Header/>
+      <Sidebar/>
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-1/6 bg-white min-h-screen shadow-md">{/* Sidebar placeholder */}</div>
@@ -70,6 +75,7 @@ export default function DevelopersPage() {
           </section>
         ))}
       </div>
+    </div>
     </div>
   );
 }
