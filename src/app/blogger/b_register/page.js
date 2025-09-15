@@ -21,10 +21,44 @@ export default function BloggerRegisterPage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Client-side validation
+  const validateForm = () => {
+    const { name, email, password, contact } = formData;
+
+    if (!name || !email || !password || !contact) {
+      setError("All fields are required.");
+      return false;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(name)) {
+      setError("Name can only contain letters and spaces.");
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Invalid email address.");
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(contact)) {
+      setError("Contact must be a 10-digit number.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
+
+    if (!validateForm()) return;
 
     try {
       const res = await fetch("/api/blogger/register", {
@@ -38,8 +72,7 @@ export default function BloggerRegisterPage() {
       if (!res.ok) {
         setError(data.error || "Something went wrong");
       } else {
-        setSuccess(data.message || "Registered successfully");
-        alert("Blogger registered successfully!");
+        setSuccess(data.message || "Registered successfully!");
         setFormData({ name: "", email: "", password: "", contact: "" });
         setTimeout(() => {
           router.push("/blogger/b_login");

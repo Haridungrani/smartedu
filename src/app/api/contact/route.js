@@ -10,6 +10,8 @@ export async function POST(req) {
         return new Response(JSON.stringify({ error: "All fields are required" }), { status: 400 });
     }
 
+    
+
     try {
         const newContact = new Contact({ name, email, comment });
         await newContact.save();

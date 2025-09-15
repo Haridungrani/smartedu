@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { connect } from "../../../utlis/dbconfig"; // Adjust path as needed
 import User from "../../../model/user"; // Adjust path as needed
 import bcrypt from "bcryptjs";
+// import res from "express/lib/response";
 
 export async function POST(req) {
   try {
@@ -46,7 +47,9 @@ export async function POST(req) {
         email: user.email,
         contact: user.contact,
       },
+      
     });
+     
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(

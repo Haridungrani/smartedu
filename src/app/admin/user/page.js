@@ -36,6 +36,27 @@ export default function UserListPage() {
         return <div className="text-center mt-10 text-red-600">{error}</div>;
     }
 
+    const handleDelete = async (id) => {
+        if (!confirm("Are you sure you want to delete this user?")) return;
+
+        try {
+            const res = await fetch(`/api/admin/user/${id}`, {
+                method: "DELETE",
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Remove user from state to update UI
+                setUsers(users.filter(user => user._id !== id));
+            } else {
+                alert(data.error || "Failed to delete user");
+            }
+        } catch (err) {
+            alert("Network error");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
             <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
@@ -49,6 +70,8 @@ export default function UserListPage() {
                                     <th className="border border-gray-300 px-4 py-2 text-left">Email</th>
                                     <th className="border border-gray-300 px-4 py-2 text-left">Contact</th>
                                     <th className="border border-gray-300 px-4 py-2 text-left">Profile Picture</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-left">Actions</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,6 +90,14 @@ export default function UserListPage() {
                                             ) : (
                                                 "N/A"
                                             )}
+                                        </td>
+                                        <td className="border border-gray-300 px-4 py-2">
+                                            <button
+                                                onClick={() => handleDelete(user._id)}
+                                                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

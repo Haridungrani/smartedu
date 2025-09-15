@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -10,10 +11,40 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [contact, setContact] = useState("");
   const [profile, setProfile] = useState(null);
+  const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const validateForm = () => {
+    if (!name || !email || !password || !contact) {
+      setError("All fields are required.");
+      return false;
+    }
+    if (!/^[A-Za-z\s]+$/.test(name)) {
+      setError("Name can only contain letters and spaces.");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Invalid email address.");
+      return false;
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return false;
+    }
+    if (!/^\d{10}$/.test(contact)) {
+      setError("Contact must be a 10-digit number.");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setMessage("");
+
+    if (!validateForm()) return;
 
     const formData = {
       name,
@@ -31,6 +62,7 @@ export default function Register() {
       });
 
       const result = await res.json();
+
       if (res.ok) {
         setMessage("User registered successfully!");
         setName("");
@@ -38,11 +70,14 @@ export default function Register() {
         setPassword("");
         setContact("");
         setProfile(null);
+
+        // Redirect to login after 2 seconds
+        setTimeout(() => router.push("/login"), 2000);
       } else {
-        setMessage("Error: " + result.error);
+        setError(result.error || "Registration failed.");
       }
-    } catch (error) {
-      setMessage("Error: " + error.message);
+    } catch (err) {
+      setError("Network error. Please try again.");
     }
   };
 
@@ -120,18 +155,15 @@ export default function Register() {
                 />
               </div>
 
+              {error && <p className="text-red-600 text-center">{error}</p>}
+              {message && <p className="text-green-600 text-center">{message}</p>}
 
-              <Link
-                href="/login"
+              <button
                 type="submit"
                 className="w-full bg-purple-800 text-white font-forte rounded-full px-4 py-2 hover:bg-purple-900"
               >
                 Register
-              </Link>
-
-              {message && (
-                <p className="text-center text-green-600">{message}</p>
-              )}
+              </button>
             </form>
 
             <div className="text-center mt-4">

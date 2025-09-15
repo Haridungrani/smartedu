@@ -9,6 +9,8 @@ export default function Sidebar({ currentPage }) {
         { href: "/contact", name: "Contact us", page: "contact" },
         { href: "/blogger/b_login", name: "Blogger's login", page: "blogregister" },
         { href: "/developer", name: "Developers", page: "developers" },
+        { href: "/login", name: "Login", page: "login" },
+
     ];
 
     return (

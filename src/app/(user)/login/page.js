@@ -23,74 +23,77 @@ export default function Login() {
         if (res.ok) {
             alert("Login successful!");
             setErrorMsg("");
-            // Redirect or save user info here if needed
+            // Redirect or perform further actions
         } else {
             setErrorMsg(data.error || "Something went wrong.");
         }
     };
 
     return (
-        <div className="container mx-auto mt-5">
-            <div className="text-center text-purple-800 font-algerian text-3xl mb-5">
-                <div className="flex justify-center mt-2">
-                    <Image src="/smartEDU_logo.png" alt="Logo" width={80} height={80} />
+        <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
+            <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-8 flex flex-col md:flex-row items-center gap-6">
+                {/* Image Section */}
+                <div className="hidden md:block flex-shrink-0">
+                    <Image src="/login.jpg" alt="Login" width={400} height={300} className="rounded-lg" />
                 </div>
-                <h2>User Login</h2>
-            </div>
-            <div className="border p-4 md:flex md:justify-center md:gap-6">
-                <div className="hidden md:block">
-                    <Image src="/login.jpg" alt="Login" width={500} height={400} />
-                </div>
-                <div className="w-full md:w-1/2">
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-4 mt-10">
-                            <label className="block font-serif text-lg mb-1">Email</label>
+
+                {/* Form Section */}
+                <div className="w-full">
+                    <div className="text-center mb-6">
+                        <div className="flex justify-center mb-4">
+                            <Image src="/smartEDU_logo.png" alt="Logo" width={80} height={80} />
+                        </div>
+                        <h2 className="text-3xl font-bold text-purple-800 font-algerian">User Login</h2>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <label className="block mb-1 font-serif text-lg">Email</label>
                             <input
                                 type="email"
-                                className="w-full border rounded p-2"
+                                className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 placeholder="Enter email"
-                                name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>
-                        <div className="mb-4">
-                            <label className="block font-serif text-lg mb-1">Password</label>
+                        <div>
+                            <label className="block mb-1 font-serif text-lg">Password</label>
                             <input
                                 type="password"
-                                name="password"
-                                className="w-full border rounded p-2"
+                                className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 placeholder="Enter password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                         </div>
-                        {errorMsg && <p className="text-red-600 text-sm mb-4">{errorMsg}</p>}
-                        <div className="text-center mb-4">
+
+                        {errorMsg && (
+                            <p className="text-red-600 text-sm">{errorMsg}</p>
+                        )}
+
+                        <div>
                             <Link
                                 href="/"
-                                className="bg-purple-800 text-white font-forte rounded-full px-4 py-2 w-full hover:bg-purple-900"
+                                type="submit"
+                                className="w-full bg-purple-800 text-white font-semibold rounded-full px-4 py-2 hover:bg-purple-900 transition"
                             >
                                 Login
                             </Link>
                         </div>
-                        <div className="text-center">
-                            <h5 className="font-serif text-base">
-                                Not registered?{" "}
-                                <Link href="/register" className="text-blue-600 hover:underline">
-                                    Register Now
-                                </Link>
-                            </h5>
-                        </div>
                     </form>
+
+                    <div className="text-center mt-4">
+                        <h5 className="text-base font-serif">
+                            Not registered?{" "}
+                            <Link href="/register" className="text-blue-600 hover:underline">
+                                Register Now
+                            </Link>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div className="text-center mt-6">
-                <Link href="/" className="inline-block bg-purple-800 text-white font-forte rounded-full px-4 py-2 hover:bg-purple-900">
-                    Home
-                </Link>
             </div>
         </div>
     );
