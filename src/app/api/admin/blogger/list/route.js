@@ -1,6 +1,6 @@
 // app/api/admin/blogger/list/route.js
 import { NextResponse } from "next/server";
-import { connect } from "../../../../../utlis/dbconfig";
+import { connect } from "../../../../../utils/dbconfig";
 import Blogger from "../../../../../model/blogger";
 
 export async function GET() {

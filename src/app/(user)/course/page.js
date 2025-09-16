@@ -1,18 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "../header/page";
 import Sidebar from "../sidebar/page";
 import Loader from "../loader";
 
 export default function CoursePage() {
+  const router = useRouter();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const fetchCourses = async () => {
     try {
-      const res = await fetch("/api/admin/course/list");
+      const res = await fetch("/api/course/list");
       if (!res.ok) {
         const text = await res.text();
         throw new Error(`HTTP ${res.status}: ${text}`);
@@ -28,7 +30,19 @@ export default function CoursePage() {
   };
 
   useEffect(() => {
-    fetchCourses();
+    (async () => {
+      try {
+        const me = await fetch("/api/me", { credentials: "include" });
+        if (!me.ok) {
+          router.replace("/login");
+          return;
+        }
+        // Fetch with credentials so cookie is sent to the protected API
+        await fetchCourses();
+      } catch {
+        router.replace("/login");
+      }
+    })();
   }, []);
 if (loading) return <Loader />;
 if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;

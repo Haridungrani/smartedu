@@ -1,4 +1,4 @@
-import { connect } from "../../../../../utlis/dbconfig";
+import { connect } from "../../../../../utils/dbconfig";
 import Contact from "../../../../../model/contact";
 
 

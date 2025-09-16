@@ -1,4 +1,4 @@
-import { connect } from "../../../../../utlis/dbconfig";
+import { connect } from "../../../../../utils/dbconfig";
 import Course from "../../../../../model/course";
 
 export async function GET() {

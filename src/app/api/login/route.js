@@ -1,5 +1,5 @@
 // import { NextResponse } from "next/server";
-// import { connect } from "../../../utlis/dbconfig";
+// import { connect } from "../../../utils/dbconfig";
 // import User from "../../../model/user";
 // import bcrypt from "bcryptjs";
 // import jwt from "jsonwebtoken";
@@ -91,10 +91,10 @@ export async function POST(req) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
 
-    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id, email: user.email, role: "user" }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
     const res = NextResponse.json({ message: "Login successful" });
-    res.cookies.set("auth-token", token, {
+    res.cookies.set("user-token", token, {
       httpOnly: true,
       path: "/",
       sameSite: "lax",

@@ -1,6 +1,6 @@
 // // app/api/admin/register/route.js
 // import { NextResponse } from "next/server";
-// import { connect } from "../../../../utlis/dbconfig";
+// import { connect } from "../../../../utils/dbconfig";
 // import Admin from "../../../../model/admin";
 
 // export async function POST(req) {
@@ -33,7 +33,7 @@
 
 // app/api/admin/register/route.js
 import { NextResponse } from "next/server";
-import { connect } from "../../../../utlis/dbconfig";
+import { connect } from "../../../../utils/dbconfig";
 import Admin from "../../../../model/admin";
 import bcrypt from "bcryptjs"; // import bcryptjs
 

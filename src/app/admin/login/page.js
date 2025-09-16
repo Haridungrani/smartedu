@@ -90,14 +90,15 @@ export default function AdminLoginPage() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        // Login success
-        router.push("/admin");
+        // Login success - force full navigation to ensure cookie is applied
+        window.location.assign("/admin");
       } else {
         setMessage(data.error || "Login failed");
       }

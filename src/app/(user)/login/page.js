@@ -236,7 +236,7 @@ export default function Login() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/api/admin/login", { // ✅ Correct API endpoint
+      const res = await fetch("/api/login", { // ✅ Correct API endpoint
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // ✅ Include cookies

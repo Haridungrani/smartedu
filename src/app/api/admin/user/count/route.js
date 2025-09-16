@@ -1,5 +1,5 @@
 // src/app/api/admin/user/list/route.js
-import { connect } from "../../../../../utlis/dbconfig";
+import { connect } from "../../../../../utils/dbconfig";
 import User from "../../../../../model/user";
 
 export async function GET() {

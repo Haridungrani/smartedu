@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connect } from "../../../../../utlis/dbconfig"; // Adjust path as needed
+import { connect } from "../../../../../utils/dbconfig"; // Adjust path as needed
 import User from "../../../../../model/user"; // Adjust path as needed
 
 export async function GET(req) {

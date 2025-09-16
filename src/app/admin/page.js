@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaUser, FaPenFancy, FaEnvelope } from "react-icons/fa"; // FaEnvelope for contact
 import Header from "./header/page";
 import Sidebar from "./sidebar/page";
 import Loader from "./loader";
 
 export default function Dashboard() {
+  const router = useRouter();
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalBloggers, setTotalBloggers] = useState(0);
   const [totalContact, setTotalContact] = useState(0);
@@ -15,15 +17,30 @@ export default function Dashboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // Verify admin session before fetching data
+    const verifyAdmin = async () => {
+      try {
+        const res = await fetch("/api/admin/me", { credentials: "include" });
+        if (!res.ok) {
+          router.replace("/admin/login");
+          return false;
+        }
+        return true;
+      } catch {
+        router.replace("/admin/login");
+        return false;
+      }
+    };
+
     const fetchCounts = async () => {
       try {
         // Fetch total users
-        const resUsers = await fetch("/api/admin/user/count");
+        const resUsers = await fetch("/api/admin/user/count", { credentials: "include" });
         const dataUsers = await resUsers.json();
         setTotalUsers(dataUsers.totalUsers || 0);
 
         // Fetch total bloggers
-        const resBloggers = await fetch("/api/admin/blogger/count");
+        const resBloggers = await fetch("/api/admin/blogger/count", { credentials: "include" });
         const dataBloggers = await resBloggers.json();
         setTotalBloggers(dataBloggers.totalBloggers || 0);
 
@@ -33,7 +50,7 @@ export default function Dashboard() {
         // setTotalCourses(dataCourses.totalCourses || 0);
 
         // Fetch total contacts
-        const resContact = await fetch("/api/admin/contact/count");
+        const resContact = await fetch("/api/admin/contact/count", { credentials: "include" });
         const dataContact = await resContact.json();
         setTotalContact(dataContact.totalContact || 0);
       } catch (err) {
@@ -44,7 +61,10 @@ export default function Dashboard() {
       }
     };
 
-    fetchCounts();
+    (async () => {
+      const ok = await verifyAdmin();
+      if (ok) fetchCounts();
+    })();
   }, []);
   if (loading) return <Loader />;
   if (error) return <div className="text-center mt-6 text-red-600">{error}</div>;

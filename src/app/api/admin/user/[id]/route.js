@@ -1,6 +1,6 @@
 // app/api/admin/user/[id]/route.js
 import { NextResponse } from "next/server";
-import { connect } from "../../../../../utlis/dbconfig";
+import { connect } from "../../../../../utils/dbconfig";
 import User from "../../../../../model/user";
 
 export async function DELETE(req, { params }) {

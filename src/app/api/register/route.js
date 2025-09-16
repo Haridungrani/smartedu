@@ -1,7 +1,7 @@
 // app/api/register/route.js
 
 import { NextResponse } from "next/server";
-import { connect } from "../../../utlis/dbconfig"; // Adjust path according to your project
+import { connect } from "../../../utils/dbconfig"; // Adjust path according to your project
 import User from "../../../model/user"; // Adjust path according to your project
 import bcrypt from "bcryptjs";
 

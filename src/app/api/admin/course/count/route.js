@@ -1,5 +1,5 @@
 // // /api/admin/course/count.js
-// import { connect } from "../../../../../utlis/dbconfig";
+// import { connect } from "../../../../../utils/dbconfig";
 // import Course from "../../../../../model/course";
 
 // export default async function handler(req, res) {
