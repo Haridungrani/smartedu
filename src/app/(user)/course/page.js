@@ -52,11 +52,11 @@ if (error) return <p className="text-center mt-6 text-red-600">{error}</p>;
       <Header/>
       <Sidebar/>
     <div className="flex justify-center items-start min-h-screen bg-gray-100 px-4 py-20">
-      <div className="flex flex-col items-center w-full max-w-7xl">
+      <div className="flex flex-col items-center w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Courses</h2>
 
         {/* Responsive centered grid */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-[-32] w-full justify-items-center">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-8 w-full justify-items-center">
           {courses.length > 0 ? (
             courses.map((course) => (
               <div
