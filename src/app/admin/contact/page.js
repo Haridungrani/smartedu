@@ -11,6 +11,8 @@ export default function ContactList() {
     const [error, setError] = useState("");
 
     const fetchContacts = async () => {
+           
+
         try {
             const res = await fetch("/api/admin/contact/list");
             const data = await res.json();
@@ -23,6 +25,8 @@ export default function ContactList() {
             setError("Network error");
         } finally {
             setLoading(false);
+                 
+
         }
     };
     if (loading) {

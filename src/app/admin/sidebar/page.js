@@ -88,7 +88,7 @@ export default function Sidebar({ currentPage }) {
   ];
 
   return (
-    <div className="fixed w-64 h-full bg-gray-200 shadow-md overflow-auto p-4">
+    <div className="fixed w-64 h-full bg-gray-300 shadow-md overflow-auto p-4">
       <div className="flex justify-center mb-4">
         <Image
           src="/smartEDU_logo.png"

@@ -50,52 +50,53 @@ export default function Sidebar({ currentPage }) {
   ];
 
   return (
-    <div className="fixed w-64 h-full bg-pink-200 overflow-auto p-4">
-      <div className="flex justify-center mb-4">
-        <Image
-          src="/smartEDU_logo.png"
-          alt="Logo"
-          width={80}
-          height={80}
-          className="rounded"
-        />
-      </div>
-      <ul>
-        {links.map((link) => (
-          <li key={link.page} className="mb-2">
-            <Link
-              href={link.href}
-              className={`block px-4 py-4 text-lg font-serif text-black hover:bg-purple-300 rounded ${
-                currentPage === link.page ? "bg-purple-300 text-white" : ""
-              }`}
-            >
-              {link.name}
-            </Link>
-          </li>
-        ))}
+   <div className="fixed w-64 h-full bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white overflow-auto p-4">
+  <div className="flex justify-center mb-4">
+    <Image
+      src="/smartEDU_logo.png"
+      alt="Logo"
+      width={80}
+      height={80}
+      className="rounded-full border-2 border-gray-700"
+    />
+  </div>
+  <ul>
+    {links.map((link) => (
+      <li key={link.page} className="mb-2">
+        <Link
+          href={link.href}
+          className={`block px-4 py-3 text-lg font-serif hover:bg-gray-800 rounded transition-colors ${
+            currentPage === link.page ? "bg-gray-800 text-white" : "text-gray-300"
+          }`}
+        >
+          {link.name}
+        </Link>
+      </li>
+    ))}
 
-        {/* Conditional Login/Logout */}
-        <li className="mt-4">
-          {email ? (
-            <div className="flex flex-col px-4 py-4 bg-purple-300 text-white rounded">
-              <span className="mb-2 font-bold">{email}</span>
-              <button
-                onClick={handleLogout}
-                className="bg-red-600 px-2 py-1 rounded hover:bg-red-700"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="block px-4 py-4 text-lg font-serif text-black hover:bg-purple-300 rounded"
-            >
-              Login/Register
-            </Link>
-          )}
-        </li>
-      </ul>
-    </div>
+    {/* Conditional Login/Logout */}
+    <li className="mt-4">
+      {email ? (
+        <div className="flex flex-col px-4 py-3 bg-gray-800 text-white rounded transition-colors">
+          <span className="mb-2 font-bold">{email}</span>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 px-2 py-1 rounded hover:bg-red-700 transition-colors"
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link
+          href="/login"
+          className="block px-4 py-3 text-lg font-serif text-gray-300 hover:bg-gray-800 rounded transition-colors"
+        >
+          Login/Register
+        </Link>
+      )}
+    </li>
+  </ul>
+</div>
+
   );
 }

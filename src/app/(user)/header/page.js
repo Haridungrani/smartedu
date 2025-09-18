@@ -267,36 +267,41 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-pink-300 p-4 flex justify-between items-center">
-      <div className="flex items-center gap-4">
-    <Link href="/" className="text-black text-lg font-bold">
+    <header className="bg-gradient-to-r from-gray-800 via-gray-700 to-black p-4 shadow-lg flex justify-between items-center">
+  <div className="flex items-center gap-4">
+    <Link href="/" className="text-white text-xl font-bold hover:text-gray-300 transition">
       SmartEdu
     </Link>
   </div>
-      
-      {email ? (
-        <div className="flex items-center gap-4">
-          <span className="text-black font-bold">{email}</span>
-          <button
-            onClick={handleLogout}
-            disabled={loading}
-            className={`text-white px-3 py-1 rounded ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
-            }`}
-          >
-            {loading ? "Logging out..." : "Logout"}
-          </button>
-        </div>
-      ) : (
-        <Link
-          href="/login"
-          className="text-white bg-blue-600 px-3 py-1 rounded hover:bg-blue-700"
-        >
-          Login
-        </Link>
-      )}
-    </header>
+
+  {email ? (
+    <div className="flex items-center gap-4">
+      <span className="text-gray-300 font-medium">{email}</span>
+      <button
+        onClick={handleLogout}
+        disabled={loading}
+        className={`px-4 py-2 rounded-md text-white font-medium transition ${
+          loading
+            ? "bg-gray-600 cursor-not-allowed"
+            : "bg-gray-700 hover:bg-gray-600"
+        }`}
+      >
+        {loading ? "Logging out..." : "Logout"}
+      </button>
+    </div>
+  ) : (
+    <Link
+      href="/login"
+      className="px-4 py-2 bg-gray-700 text-white rounded-md font-medium hover:bg-gray-600 transition"
+    >
+      Login
+    </Link>
+  )}
+</header>
+
+
+
+
+
   );
 }
