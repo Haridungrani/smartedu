@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -65,6 +66,7 @@ export default function Register() {
 
       if (res.ok) {
         setMessage("User registered successfully!");
+        toast.success("Registration successful");
         setName("");
         setEmail("");
         setPassword("");
@@ -74,9 +76,11 @@ export default function Register() {
         // Redirect to login after 2 seconds
         setTimeout(() => router.push("/login"), 2000);
       } else {
+        toast.error(result.error || "Registration failed");
         setError(result.error || "Registration failed.");
       }
     } catch (err) {
+      toast.error("Network error. Please try again.");
       setError("Network error. Please try again.");
     }
   };

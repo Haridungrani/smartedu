@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../sidebar/page";
 import Header from "../header/page";
+import { toast } from "react-toastify";
 
 export default function AddCourse() {
   const [courseName, setCourseName] = useState("");
@@ -26,10 +27,12 @@ export default function AddCourse() {
       } else {
         setMessageType("error");
         setMessage(data.error || "Failed to fetch courses");
+        toast.error(data.error || "Failed to fetch courses");
       }
     } catch (err) {
       setMessageType("error");
       setMessage("Network error: " + err.message);
+      toast.error("Network error: " + err.message);
     }
   };
 
@@ -101,6 +104,7 @@ export default function AddCourse() {
       if (res.ok) {
         setMessageType("success");
         setMessage(editingCourseId ? "Course updated successfully!" : "Course added successfully!");
+        toast.success(editingCourseId ? "Course updated" : "Course added");
         setCourseName("");
         setContent("");
         setYoutubeLink("");
@@ -110,10 +114,12 @@ export default function AddCourse() {
       } else {
         setMessageType("error");
         setMessage("Error: " + (data.error || "Unknown error"));
+        toast.error(data.error || "Failed to save course");
       }
     } catch (err) {
       setMessageType("error");
       setMessage("Error: " + err.message);
+      toast.error("Error: " + err.message);
     }
   };
 
@@ -137,14 +143,17 @@ export default function AddCourse() {
       if (res.ok) {
         setMessageType("success");
         setMessage("Course deleted successfully!");
+        toast.success("Course deleted");
         setCourses(courses.filter((course) => course._id !== id));
       } else {
         setMessageType("error");
         setMessage("Error: " + (data.error || "Unknown error"));
+        toast.error(data.error || "Failed to delete course");
       }
     } catch (err) {
       setMessageType("error");
       setMessage("Error: " + err.message);
+      toast.error("Error: " + err.message);
     }
   };
 
@@ -223,9 +232,8 @@ export default function AddCourse() {
 
             {message && (
               <p
-                className={`text-center mt-2 ${
-                  messageType === "success" ? "text-green-600" : "text-red-600"
-                }`}
+                className={`text-center mt-2 ${messageType === "success" ? "text-green-600" : "text-red-600"
+                  }`}
               >
                 {message}
               </p>
