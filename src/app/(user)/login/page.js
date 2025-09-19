@@ -224,6 +224,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; // ✅ Import router
 import Link from "next/link";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -236,7 +237,7 @@ export default function Login() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/api/login", { // ✅ Correct API endpoint
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // ✅ Include cookies
@@ -246,9 +247,10 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Login successful!");
-        router.push("/"); // ✅ Redirect to home page after successful login
+        toast.success("Login successful");
+        router.push("/");
       } else {
+        toast.error(data.error || "Invalid credentials");
         setErrorMsg(data.error || "Something went wrong.");
       }
     } catch (err) {

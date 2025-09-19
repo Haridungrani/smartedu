@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../sidebar/page";
 import Header from "../header/page";
 import Loader from "../loader";
+import { notify } from "../../notify";
 
 export default function BloggerPage() {
   const [bloggerData, setBloggerData] = useState([]);
@@ -46,11 +47,12 @@ export default function BloggerPage() {
       if (res.ok) {
         // Remove blogger from state to update UI
         setBloggerData(bloggerData.filter(blogger => blogger._id !== id));
+        notify.success("Blogger deleted");
       } else {
-        alert(data.error || "Failed to delete blogger");
+        notify.error(data.error || "Failed to delete blogger");
       }
     } catch (err) {
-      alert("Network error");
+      notify.error("Network error");
     }
   };
   return (

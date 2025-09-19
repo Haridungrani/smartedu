@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function BloggerLoginPage() {
   const [email, setEmail] = useState("");
@@ -27,14 +28,17 @@ export default function BloggerLoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
+        toast.error(data.error || "Login failed");
         setError(data.error || "Login failed");
       } else {
+        toast.success(data.message || "Login successful");
         setSuccess(data.message || "Login successful");
         setTimeout(() => {
           router.push("/"); // Redirect after successful login
         }, 2000);
       }
     } catch (err) {
+      toast.error("Network error. Please try again.");
       setError("Network error. Please try again.");
     }
   };

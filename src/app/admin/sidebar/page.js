@@ -44,6 +44,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { notify } from "../../notify";
 
 export default function Sidebar({ currentPage }) {
   const [email, setEmail] = useState(null);
@@ -54,9 +55,9 @@ export default function Sidebar({ currentPage }) {
     async function fetchUser() {
       try {
         const res = await fetch("/api/admin/me", {
-        method: "GET",
-        credentials: "include", // ← important!
-      });
+          method: "GET",
+          credentials: "include", // ← important!
+        });
         if (res.ok) {
           const data = await res.json();
           setEmail(data.email);
@@ -72,9 +73,18 @@ export default function Sidebar({ currentPage }) {
 
   // Handle logout
   const handleLogout = async () => {
-    await fetch("/api/admin/logout", { method: "POST" });
-    setEmail(null);
-    router.push("/admin/login"); // Redirect to admin login page
+    try {
+      const res = await fetch("/api/admin/logout", { method: "POST" });
+      if (res.ok) {
+        setEmail(null);
+        notify.success("Admin logged out");
+        router.push("/admin/login");
+      } else {
+        notify.error("Logout failed");
+      }
+    } catch {
+      notify.error("Network error");
+    }
   };
 
   const links = [
@@ -104,9 +114,8 @@ export default function Sidebar({ currentPage }) {
           <li key={link.page} className="mb-2">
             <Link
               href={link.href}
-              className={`block px-4 py-4 text-lg font-serif text-black hover:bg-purple-300 rounded ${
-                currentPage === link.page ? "bg-purple-300 text-white" : ""
-              }`}
+              className={`block px-4 py-4 text-lg font-serif text-black hover:bg-purple-300 rounded ${currentPage === link.page ? "bg-purple-300 text-white" : ""
+                }`}
             >
               {link.name}
             </Link>

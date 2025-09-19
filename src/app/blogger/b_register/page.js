@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { notify } from "../../notify";
 
 export default function BloggerRegisterPage() {
   const [formData, setFormData] = useState({
@@ -70,8 +71,10 @@ export default function BloggerRegisterPage() {
       const data = await res.json();
 
       if (!res.ok) {
+        notify.error(data.error || "Registration failed");
         setError(data.error || "Something went wrong");
       } else {
+        notify.success(data.message || "Registered successfully");
         setSuccess(data.message || "Registered successfully!");
         setFormData({ name: "", email: "", password: "", contact: "" });
         setTimeout(() => {
@@ -79,6 +82,7 @@ export default function BloggerRegisterPage() {
         }, 2000);
       }
     } catch (err) {
+      notify.error("Network error. Please try again.");
       setError("Network error. Please try again.");
     }
   };
